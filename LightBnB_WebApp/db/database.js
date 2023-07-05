@@ -1,5 +1,8 @@
+const pool = require('../connection.js');
+
 const properties = require("./json/properties.json");
 const users = require("./json/users.json");
+
 
 /// Users
 
@@ -12,7 +15,7 @@ const getUserWithEmail = function (email) {
   let resolvedUser = null;
   for (const userId in users) {
     const user = users[userId];
-    if (user?.email.toLowerCase() === email?.toLowerCase()) {
+    if (user.email.toLowerCase() === email.toLowerCase()) {
       resolvedUser = user;
     }
   }
@@ -59,13 +62,27 @@ const getAllReservations = function (guest_id, limit = 10) {
  * @param {*} limit The number of results to return.
  * @return {Promise<[{}]>}  A promise to the properties.
  */
+
 const getAllProperties = function (options, limit = 10) {
-  const limitedProperties = {};
-  for (let i = 1; i <= limit; i++) {
-    limitedProperties[i] = properties[i];
-  }
-  return Promise.resolve(limitedProperties);
+  
+  const queryString = `
+  SELECT * FROM properties
+  LIMIT $1;
+  `;
+
+  const values = [limit];
+
+  return pool
+    .query(queryString, values)
+    .then((result) => {
+      console.log(result.rows);
+      return result.rows;
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
 };
+
 
 /**
  * Add a property to the database
