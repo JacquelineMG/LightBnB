@@ -4,13 +4,17 @@ const properties = require("./json/properties.json");
 const users = require("./json/users.json");
 
 
-/// Users
+/////////////////////
+/////// Users ///////
+/////////////////////
+
 
 /**
  * Get a single user from the database given their email.
  * @param {String} email The email of the user.
  * @return {Promise<{}>} A promise to the user.
  */
+
 const getUserWithEmail = function(email) {
 
   const queryString = `
@@ -33,11 +37,13 @@ const getUserWithEmail = function(email) {
     });
 };
 
+
 /**
  * Get a single user from the database given their id.
  * @param {string} id The id of the user.
  * @return {Promise<{}>} A promise to the user.
  */
+
 const getUserWithId = function(id) {
 
   const queryString = `
@@ -60,11 +66,13 @@ const getUserWithId = function(id) {
     });
 };
 
+
 /**
  * Add a new user to the database.
  * @param {{name: string, password: string, email: string}} user
  * @return {Promise<{}>} A promise to the user.
  */
+
 const addUser = function(user) {
   
   const queryString = `
@@ -88,18 +96,50 @@ const addUser = function(user) {
     });
 };
 
-/// Reservations
+
+////////////////////////////
+/////// Reservations ///////
+////////////////////////////
+
 
 /**
  * Get all reservations for a single user.
  * @param {string} guest_id The id of the user.
  * @return {Promise<[{}]>} A promise to the reservations.
  */
+
 const getAllReservations = function(guest_id, limit = 10) {
-  return getAllProperties(null, 2);
+
+  const queryString = `
+  SELECT properties.*, start_date, end_date FROM properties
+  JOIN reservations ON properties.id = property_id
+  WHERE reservations.guest_id = $1
+  GROUP BY properties.id, reservations.start_date, reservations.end_date
+  LIMIT $2
+  `;
+
+  const values = [guest_id, limit];
+
+  return pool
+    . query(queryString, values)
+    .then((result) => {
+      if (!result.rows.length) {
+        return null;
+      }
+      return result.rows;
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+
+  // return getAllProperties(null, 2);
 };
 
-/// Properties
+
+//////////////////////////
+/////// Properties ///////
+//////////////////////////
+
 
 /**
  * Get all properties.
@@ -120,6 +160,9 @@ const getAllProperties = function(options, limit = 10) {
   return pool
     .query(queryString, values)
     .then((result) => {
+      if (!result.rows.length) {
+        return null;
+      }
       return result.rows;
     })
     .catch((err) => {
@@ -133,6 +176,7 @@ const getAllProperties = function(options, limit = 10) {
  * @param {{}} property An object containing all of the property details.
  * @return {Promise<{}>} A promise to the property.
  */
+
 const addProperty = function(property) {
   const propertyId = Object.keys(properties).length + 1;
   property.id = propertyId;
