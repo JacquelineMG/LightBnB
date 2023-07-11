@@ -11,4 +11,6 @@ const config = {
 
 const pool = new Pool(config);
 
+pool.connect();
+
 module.exports = pool;

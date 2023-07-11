@@ -155,7 +155,7 @@ const getAllProperties = function(options, limit = 10) {
   let queryString = `
   SELECT properties.*, AVG(property_reviews.rating) AS average_rating
   FROM properties
-  JOIN property_reviews ON property_id = properties.id
+  LEFT JOIN property_reviews ON property_id = properties.id
   `;
 
   if (options.city || options.owner_id || options.minimum_price_per_night || options.maximum_price_per_night) {
@@ -210,6 +210,9 @@ const getAllProperties = function(options, limit = 10) {
   return pool
     .query(queryString, values)
     .then((result) => {
+      if (!result.rows.length) {
+        return null;
+      }
       return result.rows;
     })
     .catch((err) => {
@@ -237,7 +240,10 @@ const addProperty = function(property) {
   return pool
     .query(queryString, values)
     .then((result) => {
-      return result.rows
+      if (!result.rows.length) {
+        return null;
+      }
+      return result.rows[0];
     })
     .catch((err) => {
       console.log(err.message);
