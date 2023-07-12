@@ -35,16 +35,18 @@ A simple multi-page Airbnb clone that uses server-side Javascript to display the
 │   ├── _header.scss
 │   ├── _property-listings.scss
 │   └── main.scss
+├── .env_example
 ├── .gitignore
 ├── package-lock.json
 ├── package.json
 ├── README.md
+├── connection.js
 └── server.js
 ```
 
 * `db` contains all the database interaction code.
   * `json` is a directory that contains a bunch of dummy data in `.json` files.
-  * `database.js` is responsible for all queries to the database. It doesn't currently connect to any database, all it does is return data from `.json` files.
+  * `database.js` is responsible for all queries to the database.
 * `public` contains all of the HTML, CSS, and client side JavaScript. 
   * `index.html` is the entry point to the application. It's the only html page because this is a single page application.
   * `javascript` contains all of the client side javascript files.
@@ -54,4 +56,6 @@ A simple multi-page Airbnb clone that uses server-side Javascript to display the
     * `components` contains all of the individual html components. They are all created using jQuery.
 * `routes` contains the router files which are responsible for any HTTP requests to `/users/something` or `/api/something`. 
 * `styles` contains all of the sass files. 
+* `.env_example` provides an example of how to set up configuration data that is required in connection.js.
+* `connection.js` configures and establishes database.js's connection to the database.
 * `server.js` is the entry point to the application. This connects the routes to the database.
