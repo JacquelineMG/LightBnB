@@ -1,5 +1,5 @@
 # Copy this file and rename it .env
-# Updatefile with requested infomation
+# Update file with requested infomation
 
 DB_USER= 'insert_user_name_here'
 DB_PASS= 'insert_update_password_here'
