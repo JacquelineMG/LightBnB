@@ -1,4 +1,7 @@
-DB_USER=
-DB_PASS=
-DB_HOST=
-DB_NAME=
+# Copy this file and rename it .env
+# Updatefile with requested infomation
+
+DB_USER= 'insert_user_name_here'
+DB_PASS= 'insert_update_password_here'
+DB_HOST= 'insert_host_info_here'
+DB_NAME= 'insert_dabase_name_here'
