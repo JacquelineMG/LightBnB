@@ -131,8 +131,6 @@ const getAllReservations = function(guest_id, limit = 10) {
     .catch((err) => {
       console.log(err.message);
     });
-
-  // return getAllProperties(null, 2);
 };
 
 
@@ -163,6 +161,9 @@ const getAllProperties = function(options, limit = 10) {
   }
 
   if (options.city) {
+    if (values.length > 0) {
+      queryString += ` AND `;
+    }
     values.push(`%${options.city}%`);
     queryString += `city LIKE $${values.length}`;
   }
@@ -171,8 +172,8 @@ const getAllProperties = function(options, limit = 10) {
     if (values.length > 0) {
       queryString += ` AND `;
     }
-    values.push(`%${options.owner_id}`);
-    queryString += `owner_id $${values.length}`;
+    values.push(`${options.owner_id}`);
+    queryString += `owner_id = $${values.length}`;
   }
 
   if (options.minimum_price_per_night) {
@@ -243,7 +244,7 @@ const addProperty = function(property) {
       if (!result.rows.length) {
         return null;
       }
-      return result.rows[0];
+      return result.rows;
     })
     .catch((err) => {
       console.log(err.message);

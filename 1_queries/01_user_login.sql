@@ -1,5 +1,7 @@
--- Get details about a single user--
+-----------------------------------------------------
+---------- Get details about a single user ----------
+-----------------------------------------------------
 
-SELECT id, name, email, password 
+SELECT id, name, email, password
 FROM users
 WHERE email = 'tristanjacobs@gmail.com';

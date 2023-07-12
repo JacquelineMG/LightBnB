@@ -1,4 +1,6 @@
--- Get a list of the most visited cities -- 
+-----------------------------------------------------------
+---------- Get a list of the most visited cities ---------- 
+-----------------------------------------------------------
 
 SELECT properties.city, COUNT(reservations) AS total_reservations
 FROM properties

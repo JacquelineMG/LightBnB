@@ -1,4 +1,6 @@
--- Show all reservation for a user -- 
+----------------------------------------------------
+-------- Show all reservations for a user ----------
+----------------------------------------------------
 
 SELECT reservations.id, properties.title, properties.cost_per_night, reservations.start_date, AVG(property_reviews.rating) AS average_rating
 FROM reservations

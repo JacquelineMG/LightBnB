@@ -1,3 +1,7 @@
+-------------------------------------------------------
+---------- Build tables for LightBnb project ----------
+-------------------------------------------------------
+
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS properties CASCADE;
 DROP TABLE IF EXISTS reservations CASCADE;

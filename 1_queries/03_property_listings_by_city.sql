@@ -1,6 +1,8 @@
--- Get details about properties (including average rating) by city --
+-------------------------------------------------------------------------------------
+---------- Get details about properties (including average rating) by city ----------
+-------------------------------------------------------------------------------------
 
-SELECT properties.id, title, cost_per_night, AVG(property_reviews.rating) as average_rating
+SELECT properties.id, title, cost_per_night, AVG(property_reviews.rating) AS average_rating
 FROM properties
 LEFT JOIN property_reviews ON property_id = properties.id
 WHERE city LIKE '%ancouv%'
