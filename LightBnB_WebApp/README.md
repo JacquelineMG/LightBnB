@@ -56,6 +56,6 @@ A simple multi-page Airbnb clone that uses server-side Javascript to display the
     * `components` contains all of the individual html components. They are all created using jQuery.
 * `routes` contains the router files which are responsible for any HTTP requests to `/users/something` or `/api/something`. 
 * `styles` contains all of the sass files. 
-* `.env_example` provides an example of how to set up configuration data that is required in connection.js.
+* `.env_example` provides an example of how to set up the configuration data that is required in connection.js.
 * `connection.js` configures and establishes database.js's connection to the database.
 * `server.js` is the entry point to the application. This connects the routes to the database.
